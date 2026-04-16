@@ -47,6 +47,43 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeInDown 0.8s ease-out;
 }
 
+.top-nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.btn-settings {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.btn-settings:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-color);
+}
+
+.settings-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.settings-card h2 {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.settings-card p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
 .header h1 {
   font-size: 4rem;
   font-weight: 800;
@@ -323,6 +360,20 @@ textarea.form-control {
 .video-channel {
   color: var(--text-secondary);
   font-size: 0.75rem;
+  display: block;
+}
+
+.video-external-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.video-external-link:hover {
+  text-decoration: underline;
 }
 
 @keyframes fadeInDown {
