@@ -19,6 +19,7 @@ function App() {
   const [language, setLanguage] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [topics, setTopics] = useState<Topic[]>([])
+  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null)
 
   const fetchYoutubeVideos = async (query: string): Promise<YouTubeVideo[]> => {
     const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
@@ -26,16 +27,16 @@ function App() {
       // Fallback mock videos if API key is not provided
       return [
         {
-          id: 'dummy1',
-          title: `Comprehensive Guide to ${query.split(' ')[0]}`,
-          thumbnailUrl: `https://via.placeholder.com/320x180/3b82f6/ffffff?text=${encodeURIComponent('Video 1')}`,
-          channelTitle: 'Academic Masters'
+          id: 'kqtD5dpn9C8',
+          title: `Python for Beginners - Full Course`,
+          thumbnailUrl: `https://img.youtube.com/vi/kqtD5dpn9C8/mqdefault.jpg`,
+          channelTitle: 'Programming with Mosh'
         },
         {
-          id: 'dummy2',
-          title: `Top Tips for ${query.split(' ')[0]} Exams`,
-          thumbnailUrl: `https://via.placeholder.com/320x180/8b5cf6/ffffff?text=${encodeURIComponent('Video 2')}`,
-          channelTitle: 'EduTech India'
+          id: 'bMknfKXIFA8',
+          title: `React JS Crash Course`,
+          thumbnailUrl: `https://img.youtube.com/vi/bMknfKXIFA8/mqdefault.jpg`,
+          channelTitle: 'Traversy Media'
         }
       ]
     }
@@ -165,22 +166,36 @@ function App() {
                     <h4 className="videos-title">Best Recommended Videos</h4>
                     <div className="videos-grid">
                       {topic.videos?.map(video => (
-                        <a 
+                        <div 
                           key={video.id} 
-                          href={`https://www.youtube.com/watch?v=${video.id}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
                           className="video-item"
                         >
                           <div className="video-thumbnail-container">
-                            <img src={video.thumbnailUrl} alt={video.title} className="video-thumbnail" />
-                            <div className="video-play-overlay">▶</div>
+                            {playingVideoId === video.id ? (
+                              <iframe
+                                width="100%"
+                                height="100%"
+                                src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+                                title={video.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              ></iframe>
+                            ) : (
+                              <div 
+                                style={{ cursor: 'pointer', height: '100%', width: '100%', position: 'relative' }}
+                                onClick={() => setPlayingVideoId(video.id)}
+                              >
+                                <img src={video.thumbnailUrl} alt={video.title} className="video-thumbnail" />
+                                <div className="video-play-overlay">▶</div>
+                              </div>
+                            )}
                           </div>
                           <div className="video-info">
                             <h5 className="video-item-title">{video.title}</h5>
                             <span className="video-channel">{video.channelTitle}</span>
                           </div>
-                        </a>
+                        </div>
                       ))}
                     </div>
                   </div>
